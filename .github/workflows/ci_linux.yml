@@ -18,27 +18,32 @@
         - uses: actions/checkout@v2
 
         - name: Checkout skia
-          run: git clone https://github.com/google/skia.git && cd skia
+          run: git clone https://github.com/google/skia.git
 
         - name: Install Ninja And Deps
           run: sudo apt-get install -y ninja-build && sudo skia/tools/install_dependencies.sh
 
         - name: Sync Deps
+          working-directory: ./skia
           run: python tools/git-sync-deps
           
         - name: Prepare Workspace
+          working-directory: ./skia
           run: |
             mkdir -p out/Build
             cp ../linux/args.gn out/Build/args.gn
         
         - name: Run GN
+          working-directory: ./skia
           run: bin/gn gen ./out/Build
             
             
         - name: Build Skia
+          working-directory: ./skia
           run: ninja -C ./out/Build/
          
         - name: Bundle Artifacts
+          working-directory: ./skia
           run: |
             cp -R include ./out/Build/include
             cp ../BUILD.bazel ./out/Build/BUILD.bazel
@@ -49,6 +54,7 @@
             rm *ninja*
             
         - name: Run Tests
+          working-directory: ./skia
           run: |
             cd ./out/Build 
             bazel test ...
