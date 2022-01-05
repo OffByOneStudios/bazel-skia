@@ -49,7 +49,10 @@
             rm *ninja*
             
         - name: Run Tests
-          run: bazel test ...
+          run: |
+            cd ./out/Build 
+            bazel test ...
+            cd - 
         - uses: actions/upload-artifact@v2
           with:
             name: skia_linux64
