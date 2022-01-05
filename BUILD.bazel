@@ -2,8 +2,8 @@ cc_library(
     name = "skia_h",
     visibility = ["//visibility:public"],
     
-    includes = [ "." ],
-    hdrs = glob(["**/*.h"]),
+    includes = [ ],
+    hdrs = glob(["include/**/*.h"]),
 )
 
 cc_import(name = "libcompression_utils_portable",
