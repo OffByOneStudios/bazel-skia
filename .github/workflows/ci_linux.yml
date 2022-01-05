@@ -53,10 +53,10 @@
             rm -rf ./out/Build/obj/
             rm ./out/Build/*ninja*
             
-        - name: Run Tests
-          working-directory: ./skia/out/Build
-          run: |
-            bazel test ...
+#         - name: Run Tests
+#           working-directory: ./skia/out/Build
+#           run: |
+#             bazel test ...
         - uses: actions/upload-artifact@v2
           with:
             name: skia_linux64
