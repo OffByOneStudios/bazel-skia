@@ -2,7 +2,7 @@ cc_library(
     name = "skia_h",
     visibility = ["//visibility:public"],
     
-    includes = [ ],
+    #includes = [ ],
     hdrs = glob(["include/**/*.h"]),
 )
 
