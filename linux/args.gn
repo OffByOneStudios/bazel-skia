@@ -1,0 +1,2 @@
+is_official_build = true
+skia_use_harfbuzz = false

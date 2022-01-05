@@ -1,0 +1,168 @@
+cc_library(
+    name = "skia_h",
+    visibility = ["//visibility:public"],
+    
+    includes = [ "." ],
+    hdrs = glob(["**/*.h"]),
+)
+
+cc_import(name = "libcompression_utils_portable",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "compression_utils_portable.lib",
+        "//conditions:default": "libcompression_utils_portable.a",
+    }),
+)
+
+cc_import(name = "libparticles",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "particles.lib",
+        "//conditions:default": "libparticles.a",
+    }),
+)
+
+cc_import(name = "libpiex",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "piex.lib",
+        "//conditions:default": "libpiex.a",
+    }),
+)
+
+cc_import(name = "libskia",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "skia.lib",
+        "//conditions:default": "libskia.a",
+    }),
+)
+
+cc_import(name = "libskresources",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "skresources",
+        "//conditions:default": "libskresources.a",
+    }),
+)
+
+cc_import(name = "libskshaper",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "skshaper.lib",
+        "//conditions:default": "libskshaper.a",
+    }),
+)
+
+cc_import(name = "libsvg",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "svg.lib",
+        "//conditions:default": "libsvg.a",
+    }),
+)
+
+cc_import(name = "libdng_sdk",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "dng_sdk.lib",
+        "//conditions:default": "libdng_sdk.a",
+    }),
+)
+
+cc_import(name = "libpathkit",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "pathkit.lib",
+        "//conditions:default": "libpathkit.a",
+    }),
+)
+
+cc_import(name = "libskottie",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "skottie.lib",
+        "//conditions:default": "libskottie.a",
+    }),
+)
+
+cc_import(name = "libsfntly",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "sfntly.lib",
+        "//conditions:default": "libsfntly.a",
+    }),
+)
+
+cc_import(name = "libsksg",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "sksg.lib",
+        "//conditions:default": "libsksg.a",
+    }),
+)
+
+cc_import(name = "libskunicode",
+    visibility = ["//visibility:public"],
+
+    static_library = select({
+        "@bazel_tools//src/conditions:windows": "skunicode.lib",
+        "//conditions:default": "libskunicode.a",
+    }),
+)
+
+
+cc_library(
+    name = "skia",
+    visibility = ["//visibility:public"],
+
+    deps = [
+        ":skia_h",
+        ":libparticles",
+        ":libpiex",
+        ":libskia",
+        ":libskresources",
+        ":libskshaper",
+        ":libsvg",
+        ":libdng_sdk",
+        ":libpathkit",
+        ":libskottie",
+        ":libsfntly",
+        ":libsksg",
+        ":libskunicode",
+    ],
+
+    linkopts = [ ] + select({
+        "@bazel_tools//src/conditions:windows": [
+            "-DEFAULTLIB:Opengl32.lib"
+        ],
+        "@bazel_tools//src/conditions:darwin_x86_64": [
+            "-framework CoreText",
+            "-framework CoreServices",
+            "-framework CoreGraphics"
+        ],
+        "//conditions:default": [
+            "-lGL",
+            "-lz",
+            "-lpng",
+            "-ljpeg",
+            "-lwebp",
+            "-lwebpmux",
+            "-lwebpdemux",
+            "-lfreetype",
+            "-lfontconfig",
+        ],
+    }),
+)
