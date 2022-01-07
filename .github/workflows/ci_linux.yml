@@ -30,7 +30,7 @@
         - name: Prepare Workspace
           working-directory: ./skia
           run: |
-            mkdir -p out/Build
+            mkdir -p out/Build/linux_x86_64
             cp ../linux/args.gn out/Build/args.gn
         
         - name: Run GN
@@ -52,11 +52,13 @@
             for i in $(find ./out/Build/include | grep bazel); do rm $i; done
             rm -rf ./out/Build/obj/
             rm ./out/Build/*ninja*
+
+            mv ./out/Build/*.a ./out/Build/linux_x86_64/
             
-#         - name: Run Tests
-#           working-directory: ./skia/out/Build
-#           run: |
-#             bazel test ...
+        - name: Run Tests
+          working-directory: ./skia/out/Build
+          run: |
+            bazel test ...
         - uses: actions/upload-artifact@v2
           with:
             name: skia_linux64

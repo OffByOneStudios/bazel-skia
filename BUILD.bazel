@@ -10,8 +10,9 @@ cc_import(name = "libcompression_utils_portable",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "compression_utils_portable.lib",
-        "//conditions:default": "libcompression_utils_portable.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/compression_utils_portable.lib",
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libcompression_utils_portable.a",
+        "//conditions:default": "linux_x86_64/libcompression_utils_portable.a",
     }),
 )
 
@@ -19,8 +20,9 @@ cc_import(name = "libparticles",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "particles.lib",
-        "//conditions:default": "libparticles.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/particles.lib",
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libparticles.a",
+        "//conditions:default": "linux_x86_64/libparticles.a",
     }),
 )
 
@@ -28,8 +30,9 @@ cc_import(name = "libpiex",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "piex.lib",
-        "//conditions:default": "libpiex.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/particles.lib", # Not included on Windows
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libpiex.a",
+        "//conditions:default": "linux_x86_64/libpiex.a",
     }),
 )
 
@@ -37,8 +40,9 @@ cc_import(name = "libskia",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "skia.lib",
-        "//conditions:default": "libskia.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/skia.lib",
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libskia.a",
+        "//conditions:default": "linux_x86_64/libskia.a",
     }),
 )
 
@@ -46,8 +50,9 @@ cc_import(name = "libskresources",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "skresources",
-        "//conditions:default": "libskresources.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/skresources.lib",
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libskresources.a",
+        "//conditions:default": "linux_x86_64/libskresources.a",
     }),
 )
 
@@ -55,8 +60,9 @@ cc_import(name = "libskshaper",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "skshaper.lib",
-        "//conditions:default": "libskshaper.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/skshaper.lib",
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libskshaper.a",
+        "//conditions:default": "linux_x86_64/libskshaper.a",
     }),
 )
 
@@ -64,8 +70,9 @@ cc_import(name = "libsvg",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "svg.lib",
-        "//conditions:default": "libsvg.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/svg.lib",
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libsvg.a",
+        "//conditions:default": "linux_x86_64/libsvg.a",
     }),
 )
 
@@ -73,8 +80,9 @@ cc_import(name = "libdng_sdk",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "dng_sdk.lib",
-        "//conditions:default": "libdng_sdk.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/particles.lib", # Not included on Windows
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libdng_sdk.a",
+        "//conditions:default": "linux_x86_64/libdng_sdk.a",
     }),
 )
 
@@ -82,8 +90,9 @@ cc_import(name = "libpathkit",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "pathkit.lib",
-        "//conditions:default": "libpathkit.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/pathkit.lib",
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libpathkit.a",
+        "//conditions:default": "linux_x86_64/libpathkit.a",
     }),
 )
 
@@ -91,8 +100,9 @@ cc_import(name = "libskottie",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "skottie.lib",
-        "//conditions:default": "libskottie.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/skottie.lib",
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libskottie.a",
+        "//conditions:default": "linux_x86_64/libskottie.a",
     }),
 )
 
@@ -100,8 +110,9 @@ cc_import(name = "libsfntly",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "sfntly.lib",
-        "//conditions:default": "libsfntly.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/skia.lib", # Not Included on Windows
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libsfntly.a",
+        "//conditions:default": "linux_x86_64/libsfntly.a",
     }),
 )
 
@@ -109,8 +120,9 @@ cc_import(name = "libsksg",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "sksg.lib",
-        "//conditions:default": "libsksg.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/sksg.lib",
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libsksg.a",
+        "//conditions:default": "linux_x86_64/libsksg.a",
     }),
 )
 
@@ -118,8 +130,9 @@ cc_import(name = "libskunicode",
     visibility = ["//visibility:public"],
 
     static_library = select({
-        "@bazel_tools//src/conditions:windows": "skunicode.lib",
-        "//conditions:default": "libskunicode.a",
+        "@bazel_tools//src/conditions:windows": "windows_x86_64/skunicode.lib",
+        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libskunicode.a",
+        "//conditions:default": "linux_x86_64/libskunicode.a",
     }),
 )
 
