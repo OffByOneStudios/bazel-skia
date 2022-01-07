@@ -54,7 +54,8 @@
             Copy-Item -Path ..\tests .out\Build\tests -Recurse
             Remove-Item 'out\Build\include' -Recurse -Include *.bazel
 
-            rm -rf ./out/Build/obj/
+            Get-ChildItem -Path /out/Build/obj/ -Recurse | Remove-Item -force -recurse
+            rm -R ./out/Build/obj/
             rm ./out/Build/*ninja*
 
             Move-Item -Path .\out\Build\*.lib -Destination out\Build\windows_x86_64
