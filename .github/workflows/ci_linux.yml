@@ -59,6 +59,7 @@
           working-directory: ./skia/out/Build
           run: |
             bazel test ...
+            bazel clean
         - uses: actions/upload-artifact@v2
           with:
             name: skia_linux64
