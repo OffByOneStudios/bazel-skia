@@ -1,0 +1,70 @@
+# This is a basic workflow to help you get started with Actions
+
+  name: CILinux
+
+  on:
+    workflow_dispatch:
+
+  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  jobs:
+    # This workflow contains a single job called "build"
+    build:
+      # The type of runner that the job will run on
+      runs-on: windows-2019
+
+      # Steps represent a sequence of tasks that will be executed as part of the job
+      steps:
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        - uses: actions/checkout@v2
+
+        - name: Checkout skia
+          run: git clone https://github.com/google/skia.git
+
+        - name: Install Ninja
+          uses: crazy-max/ghaction-chocolatey@v1
+          with:
+            args: install ninja
+
+        - name: Sync Deps
+          working-directory: ./skia
+          run: python tools/git-sync-deps
+          
+        - name: Prepare Workspace
+          working-directory: ./skia
+          run: |
+            mkdir out/Build/windows_x86_64
+            cp ../windows/args.gn out/Build/args.gn
+        
+        - name: Run GN
+          working-directory: ./skia
+          run: bin/gn gen ./out/Build
+            
+            
+        - name: Build Skia
+          working-directory: ./skia
+          run: ninja -C ./out/Build/
+         
+        - name: Bundle Artifacts
+          working-directory: ./skia
+          run: |
+            Copy-Item -Path include -Destination out\Build\include -Recurse
+
+            Copy-Item ..\BUILD.bazel out\Build\BUILD.bazel
+            Copy-Item ..\WORKSPACE out\Build\WORKSPACE
+            Copy-Item -Path ..\tests .out\Build\tests -Recurse
+            Remove-Item 'out\Build\include' -Recurse -Include *.bazel
+
+            rm -rf ./out/Build/obj/
+            rm ./out/Build/*ninja*
+
+            Move-Item -Path .\out\Build\*.lib -Destination out\Build\windows_x86_64
+            
+        - name: Run Tests
+          working-directory: ./skia/out/Build
+          run: |
+            bazel test ...
+            bazel clean
+        - uses: actions/upload-artifact@v2
+          with:
+            name: skia_windows64
+            path: skia/out/Build
