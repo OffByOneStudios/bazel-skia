@@ -54,7 +54,6 @@
             Copy-Item -Path ..\tests .out\Build\tests -Recurse
             Remove-Item 'out\Build\include' -Recurse -Include *.bazel
 
-            Get-ChildItem -Path /out/Build/obj/ -Recurse | Remove-Item -force -recurse
             rm -R ./out/Build/obj/
             rm ./out/Build/*ninja*
 
