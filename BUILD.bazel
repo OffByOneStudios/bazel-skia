@@ -3,7 +3,7 @@ cc_library(
     visibility = ["//visibility:public"],
     
     #includes = [ ],
-    hdrs = glob(["include/**/*.h"]),
+    hdrs = glob(["include/**/*.h", "modules/**/*.h"]),
 )
 
 cc_import(name = "libcompression_utils_portable",
@@ -86,15 +86,7 @@ cc_import(name = "libdng_sdk",
     }),
 )
 
-cc_import(name = "libpathkit",
-    visibility = ["//visibility:public"],
 
-    static_library = select({
-        "@bazel_tools//src/conditions:windows": "windows_x86_64/pathkit.lib",
-        "@bazel_tools//src/conditions:darwin_x86_64": "macos_x86_64/libpathkit.a",
-        "//conditions:default": "linux_x86_64/libpathkit.a",
-    }),
-)
 
 cc_import(name = "libskottie",
     visibility = ["//visibility:public"],
@@ -150,7 +142,6 @@ cc_library(
         ":libskshaper",
         ":libsvg",
         ":libdng_sdk",
-        ":libpathkit",
         ":libskottie",
         ":libsfntly",
         ":libsksg",

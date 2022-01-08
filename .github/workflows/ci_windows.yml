@@ -48,6 +48,11 @@
           working-directory: ./skia
           run: |
             Copy-Item -Path include -Destination out\Build\include -Recurse
+            
+            mkdir .\out\Build\modules\particles -and Copy-Item -Path modules\particles\include -Destination  out\Build\modules\particles\include 
+            mkdir .\out\Build\modules\skottie -and Copy-Item -Path modules\skottie\include -Destination  out\Build\modules\skottie\include 
+            mkdir .\out\Build\modules\svg -and Copy-Item -Path modules\svg\include -Destination  out\Build\modules\svg\include 
+
 
             Copy-Item ..\BUILD.bazel out\Build\BUILD.bazel
             Copy-Item ..\WORKSPACE out\Build\WORKSPACE

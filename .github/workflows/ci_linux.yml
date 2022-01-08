@@ -46,6 +46,11 @@
           working-directory: ./skia
           run: |
             cp -R include ./out/Build/include
+            mkdir ./out/Build/modules
+            mkdir ./out/Build/modules/particles && cp -R modules/particles/include  ./out/Build/modules/particles/include 
+            mkdir ./out/Build/modules/skottie && cp -R modules/skottie/include  ./out/Build/modules/skottie/include
+            mkdir ./out/Build/modules/svg && cp -R modules/svg/include  ./out/Build/modules/svg/include
+
             cp ../BUILD.bazel ./out/Build/BUILD.bazel
             cp ../WORKSPACE ./out/Build/WORKSPACE
             cp -R ../tests ./out/Build/tests
