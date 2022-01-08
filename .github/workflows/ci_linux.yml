@@ -54,7 +54,11 @@
             cp ../BUILD.bazel ./out/Build/BUILD.bazel
             cp ../WORKSPACE ./out/Build/WORKSPACE
             cp -R ../tests ./out/Build/tests
+
             for i in $(find ./out/Build/include | grep bazel); do rm $i; done
+            for i in $(find ./out/Build/modules | grep bazel); do rm $i; done
+
+
             rm -rf ./out/Build/obj/
             rm ./out/Build/*ninja*
 

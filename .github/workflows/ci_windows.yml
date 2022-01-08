@@ -57,7 +57,9 @@
             Copy-Item ..\BUILD.bazel out\Build\BUILD.bazel
             Copy-Item ..\WORKSPACE out\Build\WORKSPACE
             Copy-Item -Path ..\tests .out\Build\tests -Recurse
+
             Remove-Item 'out\Build\include' -Recurse -Include *.bazel
+            Remove-Item 'out\Build\modules' -Recurse -Include *.bazel
 
             rm -R ./out/Build/obj/
             rm ./out/Build/*ninja*
